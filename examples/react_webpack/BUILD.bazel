@@ -1,3 +1,4 @@
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 load("@npm//@bazel/typescript:index.bzl", "ts_project")
 load("@npm//http-server:index.bzl", "http_server")
 load("@npm//sass:index.bzl", "sass")
@@ -46,4 +47,13 @@ http_server(
         "index.html",
     ],
     templated_args = ["."],
+)
+
+pkg_tar(
+    name = "pkg_tar",
+    srcs = [":server"],
+    extension = "tar",
+    include_runfiles = True,
+    package_dir = "react_webpack",
+    strip_prefix = ".",
 )
